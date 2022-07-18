@@ -3,6 +3,7 @@
 
 /**
  * swap - swaps elements
+ * @array: array to be sorted
  * @x: int 1
  * @y: int 2
  * Return: void
@@ -61,8 +62,8 @@ void quick_sort_recursion(int *array, size_t size, int low, int high)
 
 size_t partition(int *array, size_t size, int low, int high)
 {
-	int value;
-	int i;
+	int value = array[high];
+	int i = low;
 	int j;
 
 	value = array[high];
@@ -76,9 +77,7 @@ size_t partition(int *array, size_t size, int low, int high)
 			print_array(array, size);
 		}
 	}
-
 	swap(&array[i], &array[high]);
 	print_array(array, size);
-
 	return i;
 }
