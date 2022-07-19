@@ -46,7 +46,7 @@ void quick_sort_recursion(int *array, size_t size, int low, int high)
 	if (low < high)
 	{
 		p = partition(array, size, low, high);
-		
+
 		quick_sort_recursion(array, size, low, p - 1);
 		quick_sort_recursion(array, size, p + 1, high);
 	}
