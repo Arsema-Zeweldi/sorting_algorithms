@@ -1,4 +1,5 @@
 #include "sort.h"
+#include <stdio.h>
 
 /**
  * insertion_sort_list - Insertion sort algorithm
@@ -8,20 +9,43 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	size_t i;
-	size_t j;
-	int key;
-	size_t size;
+	listint_t *node, *temp, *next, *temp_next, *temp_prev;
+	int i = 0;
 
-	for (i = 1; i < size; i++)
+	if (list == NULL || (*list)->next == NULL)
+		return;
+	node = *list;
+	node = node->next;
+	while (node != NULL)
 	{
-		key = list[i];
-		j = i - 1;
+		temp = node;
+		next = node->next;
+		temp_next = temp->next;
+		temp_prev = temp->prev;
 
-		while (j >= 0 && list[j] > key)
+		while (temp->prev != NULL && temp_prev->n > temp->n)
 		{
-			list[j + 1] = list[j];
-			j = j - 1;
+			if (temp_next != NULL)
+				temp_next->prev = temp_prev;
+			temp_prev->next = temp_next;
+			if (temp_prev->prev == NULL)
+			{
+				temp_prev->prev = temp;
+				*list = temp;
+				temp->prev = NULL;
+			}
+			else
+			{
+				temp->prev = temp_prev->prev;
+				temp_prev->prev->next = temp;
+				temp_prev->prev = temp;
+			}
+			temp->next = temp_prev;
+			temp_prev = temp->prev;
+			temp_next = temp->next;
+			print_list(*list);
 		}
+		node = next;
+		i++;
 	}
 }
